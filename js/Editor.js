@@ -100,7 +100,7 @@ function Editor() {
 	this.loader = new Loader( this );
 
 	this.camera = _DEFAULT_CAMERA.clone();
-
+	this.environment = null;
 	this.scene = new THREE.Scene();
 	this.scene.name = 'Scene';
 
