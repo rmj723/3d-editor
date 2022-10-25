@@ -25,7 +25,7 @@ function MenubarStatus( editor ) {
 		}
 
 	} );
-	container.add( autosave );
+	// container.add( autosave );
 
 	editor.signals.savingStarted.add( function () {
 

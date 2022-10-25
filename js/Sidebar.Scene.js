@@ -247,6 +247,11 @@ function SidebarScene( editor ) {
 	container.add( environmentRow );
 
 	function onEnvironmentChanged() {
+		if(environmentEquirectangularTexture.getValue()){
+			editor.environment = environmentEquirectangularTexture.getValue().sourceFile;
+		}else{
+			editor.environment = null;
+		}
 
 		signals.sceneEnvironmentChanged.dispatch(
 			environmentType.getValue(),

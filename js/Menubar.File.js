@@ -8,7 +8,6 @@ function MenubarFile( editor ) {
 
 	const config = editor.config;
 	const strings = editor.strings;
-
 	const container = new UIPanel();
 	container.setClass( 'menu' );
 
@@ -67,6 +66,39 @@ function MenubarFile( editor ) {
 
 	} );
 	options.add( option );
+
+
+	// Export JSON
+	option = new UIRow();
+	option.setClass( 'option' );
+	option.setTextContent( strings.getKey( 'menubar/file/export' ) );
+	option.onClick( function () {
+
+		let data = {};
+		if(editor.environment) data.environment = {file: editor.environment}
+		const formatData =(s)=> ({x: s.x.toFixed(2), y: s.y.toFixed(2),z: s.z.toFixed(2) });
+
+		editor.scene.children.forEach(m=>{
+			data[`${m.name}`] = {
+				position: formatData(m.position),
+				rotation: formatData(m.rotation),
+				scale: formatData(m.scale)
+			}
+			if(m.intensity) data[`${m.name}`]['intensity'] = m.intensity.toFixed(2)
+		})
+		const text = JSON.stringify(data, undefined, 4)
+
+		var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', 'scene.json');
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+		
+	} );
+	options.add( option );
+
 
 	//
 
