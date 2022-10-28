@@ -72,22 +72,62 @@ function MenubarFile( editor ) {
 	option = new UIRow();
 	option.setClass( 'option' );
 	option.setTextContent( strings.getKey( 'menubar/file/export' ) );
-	option.onClick( function () {
+	const toneMappings = {
+		0: 'No',
+		1: 'Linear',
+		2: 'Reinhard',
+		3: 'Cineon',
+		4: 'ACESFilmic'
+	}
 
-		let data = {};
-		if(editor.environment) data.environment = {file: editor.environment}
+	option.onClick( function () {
+		console.log(editor)
+		let data = {
+			lights: [],
+			camera: {
+				fov: editor.camera.fov,
+				near: editor.camera.near,
+				far: editor.camera.far,
+				position: {
+					...editor.camera.position
+				}
+			},
+			scene: {
+				background: editor.environment,
+				renderer: {
+					toneMapping: toneMappings[window.renderer.toneMapping],
+					exposure: window.renderer.toneMappingExposure,
+				},
+				lights: {
+					physical:  window.renderer.physicallyCorrectLights
+				}
+			}
+		};
+
 		const formatData =(s)=> ({x: s.x.toFixed(2), y: s.y.toFixed(2),z: s.z.toFixed(2) });
 
 		editor.scene.children.forEach(m=>{
-			data[`${m.name}`] = {
-				position: formatData(m.position),
-				rotation: formatData(m.rotation),
-				scale: formatData(m.scale)
+
+			if(m.type.includes('Light')){
+				data.lights.push({
+					type: m.type,
+					intensity: m.intensity,
+					color: '#' + m.color.getHexString(),
+					position:  {...m.position},
+					target: m.target? true : false,
+					targetPosition: m.target? {...m.target.position}: null
+				})
+			}else{
+				data[`${m.name}`] = {
+					position: formatData(m.position),
+					rotation: formatData(m.rotation),
+					scale: formatData(m.scale)
+				}
 			}
-			if(m.intensity) data[`${m.name}`]['intensity'] = m.intensity.toFixed(2)
+
 		})
 		const text = JSON.stringify(data, undefined, 4)
-
+		console.log(text)
 		var element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
         element.setAttribute('download', 'scene.json');

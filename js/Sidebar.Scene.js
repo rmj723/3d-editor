@@ -183,16 +183,16 @@ function SidebarScene( editor ) {
 	backgroundEquirectangularTexture.setDisplay( 'none' );
 	backgroundRow.add( backgroundEquirectangularTexture );
 
-	container.add( backgroundRow );
+	// container.add( backgroundRow );
 
 	const backgroundEquirectRow = new UIRow();
 	backgroundEquirectRow.setDisplay( 'none' );
 	backgroundEquirectRow.setMarginLeft( '90px' );
 
-	const backgroundBlurriness = new UINumber( 0 ).setWidth( '40px' ).setRange( 0, 1 ).onChange( onBackgroundChanged );
-	backgroundEquirectRow.add( backgroundBlurriness );
+	// const backgroundBlurriness = new UINumber( 0 ).setWidth( '40px' ).setRange( 0, 1 ).onChange( onBackgroundChanged );
+	// backgroundEquirectRow.add( backgroundBlurriness );
 
-	container.add( backgroundEquirectRow );
+	// container.add( backgroundEquirectRow );
 
 	function onBackgroundChanged() {
 
@@ -224,12 +224,12 @@ function SidebarScene( editor ) {
 
 	const environmentType = new UISelect().setOptions( {
 
-		'None': '',
+		// 'None': '',
 		'Equirectangular': 'Equirect',
-		'ModelViewer': 'ModelViewer'
+		// 'ModelViewer': 'ModelViewer'
 
 	} ).setWidth( '150px' );
-	environmentType.setValue( 'None' );
+	environmentType.setValue( 'Equirectangular' );
 	environmentType.onChange( function () {
 
 		onEnvironmentChanged();
@@ -310,8 +310,8 @@ function SidebarScene( editor ) {
 
 	} );
 
-	fogTypeRow.add( new UIText( strings.getKey( 'sidebar/scene/fog' ) ).setWidth( '90px' ) );
-	fogTypeRow.add( fogType );
+	// fogTypeRow.add( new UIText( strings.getKey( 'sidebar/scene/fog' ) ).setWidth( '90px' ) );
+	// fogTypeRow.add( fogType );
 
 	container.add( fogTypeRow );
 

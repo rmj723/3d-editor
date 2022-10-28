@@ -115,7 +115,7 @@ function SidebarProjectRenderer( editor ) {
 		currentRenderer.shadowMap.type = parseFloat( shadowTypeSelect.getValue() );
 		currentRenderer.toneMapping = parseFloat( toneMappingSelect.getValue() );
 		currentRenderer.toneMappingExposure = toneMappingExposure.getValue();
-
+		window.renderer = currentRenderer;
 		signals.rendererCreated.dispatch( currentRenderer );
 		signals.rendererUpdated.dispatch();
 
