@@ -81,7 +81,7 @@ function MenubarFile( editor ) {
 	}
 
 	option.onClick( function () {
-		console.log(editor)
+		// console.log(editor)
 		let data = {
 			lights: [],
 			camera: {
