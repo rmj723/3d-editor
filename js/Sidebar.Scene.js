@@ -246,8 +246,21 @@ function SidebarScene( editor ) {
 
 	container.add( environmentRow );
 
+	// flaaudwls add HDR Rotation UI
+	const rotationRow = new UIRow();
+	const hdrRotation = new UINumber().setStep( 10 ).setNudge( 0.1 ).setUnit( '°' ).setWidth( '50px' ).onChange( ()=>{
+		editor.scene.rotation.y =  THREE.MathUtils.degToRad(hdrRotation.getValue());
+		editor.render()
+	} );
+	rotationRow.add(new UIText( 'HDR Rotation').setWidth( '90px' ) , hdrRotation)
+	editor.data.hdrRotation = hdrRotation;
+	// container.add( rotationRow );
+
+
 	function onEnvironmentChanged() {
 		if(environmentEquirectangularTexture.getValue()){
+
+			// flaaudwls get environment path.
 			editor.environment = environmentEquirectangularTexture.getValue().sourceFile;
 		}else{
 			editor.environment = null;

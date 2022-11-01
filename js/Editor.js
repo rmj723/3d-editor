@@ -100,7 +100,8 @@ function Editor() {
 	this.loader = new Loader( this );
 
 	this.camera = _DEFAULT_CAMERA.clone();
-	this.environment = null;
+
+	
 	this.scene = new THREE.Scene();
 	this.scene.name = 'Scene';
 
@@ -124,6 +125,17 @@ function Editor() {
 
 	this.addCamera( this.camera );
 
+	// flaaudwls attach camera to scene
+
+	const isCameraAttached = false;
+	this.scene.children.forEach(m=>{
+		if(m.type === "PerspectiveCamera") isCameraAttached = true;
+	})
+	if(!isCameraAttached) this.scene.add(this.camera)
+
+	this.environment = null; // hdr path
+	this.data = {};
+	this.render = ()=>{} // render function()
 }
 
 Editor.prototype = {
@@ -402,11 +414,11 @@ Editor.prototype = {
 
 			if ( helper === undefined ) {
 
-				if ( object.isCamera ) {
-
-					helper = new THREE.CameraHelper( object );
-
-				} else if ( object.isPointLight ) {
+				// removed camera helper
+				// if ( object.isCamera ) {
+				// 	helper = new THREE.CameraHelper( object );
+				// } else
+				 if ( object.isPointLight ) {
 
 					helper = new THREE.PointLightHelper( object, 1 );
 
@@ -607,7 +619,6 @@ Editor.prototype = {
 		this.scene.background = null;
 		this.scene.environment = null;
 		this.scene.fog = null;
-
 		var objects = this.scene.children;
 
 		while ( objects.length > 0 ) {
@@ -627,9 +638,8 @@ Editor.prototype = {
 		this.mixer.stopAllAction();
 
 		this.deselect();
-
-		this.signals.editorCleared.dispatch();
-
+		// this.signals.editorCleared.dispatch();
+this.scene.add(this.camera)
 	},
 
 	//

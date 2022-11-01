@@ -467,7 +467,6 @@ function MenubarAdd( editor ) {
 
 		const camera = new THREE.PerspectiveCamera();
 		camera.name = 'PerspectiveCamera';
-
 		editor.execute( new AddObjectCommand( editor, camera ) );
 
 	} );

@@ -63,6 +63,7 @@ function Viewport( editor ) {
 	const selectionBox = new THREE.Box3Helper( box );
 	selectionBox.material.depthTest = false;
 	selectionBox.material.transparent = true;
+	selectionBox.material.opacity = 0;
 	selectionBox.visible = false;
 	sceneHelpers.add( selectionBox );
 
@@ -71,6 +72,7 @@ function Viewport( editor ) {
 	let objectScaleOnDown = null;
 
 	const transformControls = new TransformControls( camera, container.dom );
+	transformControls.scale.set(0)
 	transformControls.addEventListener( 'change', function () {
 
 		const object = transformControls.object;
@@ -734,6 +736,9 @@ function Viewport( editor ) {
 		editor.signals.sceneRendered.dispatch( endTime - startTime );
 
 	}
+
+	// flaaudwls get render function
+	editor.render = render;
 
 	return container;
 

@@ -26,12 +26,12 @@ function MenubarFile( editor ) {
 	option.setClass( 'option' );
 	option.setTextContent( strings.getKey( 'menubar/file/new' ) );
 	option.onClick( function () {
-
-		if ( confirm( 'Any unsaved data will be lost. Are you sure?' ) ) {
-
+		// flaaudwls
+		if(editor.data.hdrRotation) editor.data.hdrRotation.setValue(0)
+		window.location.reload()
+		// if ( confirm( 'Any unsaved data will be lost. Are you sure?' ) ) {
 			editor.clear();
-
-		}
+		// }
 
 	} );
 	options.add( option );
@@ -68,7 +68,7 @@ function MenubarFile( editor ) {
 	options.add( option );
 
 
-	// Export JSON
+	// flaaudwls Export JSON
 	option = new UIRow();
 	option.setClass( 'option' );
 	option.setTextContent( strings.getKey( 'menubar/file/export' ) );

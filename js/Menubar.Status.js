@@ -25,7 +25,8 @@ function MenubarStatus( editor ) {
 		}
 
 	} );
-	// container.add( autosave );
+	// flaaudwls remove autosave
+	// container.add( autosave ); 
 
 	editor.signals.savingStarted.add( function () {
 
