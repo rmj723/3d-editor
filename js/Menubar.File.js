@@ -135,7 +135,7 @@ function MenubarFile( editor ) {
         element.setAttribute('download', 'scene.json');
         element.style.display = 'none';
         document.body.appendChild(element);
-        // element.click();
+        element.click();
         document.body.removeChild(element);
 		
 	} );
