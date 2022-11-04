@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { UIPanel, UIBreak, UIRow, UIColor, UISelect, UIText, UINumber } from './libs/ui.js';
+import { UIPanel, UIBreak, UIRow, UIColor, UISelect, UIText, UINumber , UIInput} from './libs/ui.js';
 import { UIOutliner, UITexture } from './libs/ui.three.js';
 
 function SidebarScene( editor ) {
@@ -253,9 +253,23 @@ function SidebarScene( editor ) {
 		editor.render()
 	} );
 	rotationRow.add(new UIText( 'HDR Rotation').setWidth( '90px' ) , hdrRotation)
-	editor.data.hdrRotation = hdrRotation;
-	// container.add( rotationRow );
+	editor.data.hdrRotation = hdrRotation.getValue();
+	container.add( rotationRow );
 
+	// flaaudwls add Model & HDR file location
+	const modelPathRow = new UIRow();
+	const modelPathInput = new UIInput('').setWidth( '150px' ).setFontSize( '12px' ).onChange( function () {
+		editor.data.modelPath = modelPathInput.getValue()
+	} );
+	modelPathRow.add( new UIText( 'Model Path' ).setWidth( '90px' ) , modelPathInput)
+	container.add( modelPathRow );
+
+	const hdrPathRow = new UIRow();
+	const hdrPathInput = new UIInput('').setWidth( '150px' ).setFontSize( '12px' ).onChange( function () {
+		editor.data.hdrPath = hdrPathInput.getValue();
+	} );
+	hdrPathRow.add( new UIText( 'HDR Path' ).setWidth( '90px' ) , hdrPathInput)
+	container.add( hdrPathRow );
 
 	function onEnvironmentChanged() {
 		if(environmentEquirectangularTexture.getValue()){

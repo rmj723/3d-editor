@@ -93,7 +93,8 @@ function MenubarFile( editor ) {
 				}
 			},
 			scene: {
-				background: editor.environment,
+				background: editor.data.hdrPath,
+				rotation: editor.data.hdrRotation,
 				renderer: {
 					toneMapping: toneMappings[window.renderer.toneMapping],
 					exposure: window.renderer.toneMappingExposure,
@@ -117,8 +118,9 @@ function MenubarFile( editor ) {
 					target: m.target? true : false,
 					targetPosition: m.target? {...m.target.position}: null
 				})
-			}else{
-				data[`${m.name}`] = {
+			}else if(!m.type.includes("Camera")){
+				data['model'] = {
+					path: editor.data.modelPath,
 					position: formatData(m.position),
 					rotation: formatData(m.rotation),
 					scale: formatData(m.scale)
@@ -133,7 +135,7 @@ function MenubarFile( editor ) {
         element.setAttribute('download', 'scene.json');
         element.style.display = 'none';
         document.body.appendChild(element);
-        element.click();
+        // element.click();
         document.body.removeChild(element);
 		
 	} );
