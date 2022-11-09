@@ -254,7 +254,7 @@ function SidebarScene( editor ) {
 	} );
 	rotationRow.add(new UIText( 'HDR Rotation').setWidth( '90px' ) , hdrRotation)
 	editor.data.hdrRotation = hdrRotation.getValue();
-	// container.add( rotationRow );
+	container.add( rotationRow );
 
 	// flaaudwls add Model & HDR file location
 	const modelPathRow = new UIRow();
@@ -262,14 +262,14 @@ function SidebarScene( editor ) {
 		editor.data.modelPath = modelPathInput.getValue()
 	} );
 	modelPathRow.add( new UIText( 'Model Path' ).setWidth( '90px' ) , modelPathInput)
-	// container.add( modelPathRow );
+	container.add( modelPathRow );
 
 	const hdrPathRow = new UIRow();
 	const hdrPathInput = new UIInput('').setWidth( '150px' ).setFontSize( '12px' ).onChange( function () {
 		editor.data.hdrPath = hdrPathInput.getValue();
 	} );
 	hdrPathRow.add( new UIText( 'HDR Path' ).setWidth( '90px' ) , hdrPathInput)
-	// container.add( hdrPathRow );
+	container.add( hdrPathRow );
 
 	function onEnvironmentChanged() {
 		if(environmentEquirectangularTexture.getValue()){
