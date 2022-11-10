@@ -251,10 +251,26 @@ function SidebarScene( editor ) {
 	const hdrRotation = new UINumber().setStep( 10 ).setNudge( 0.1 ).setUnit( '°' ).setWidth( '50px' ).onChange( ()=>{
 		editor.scene.rotation.y =  THREE.MathUtils.degToRad(hdrRotation.getValue());
 		editor.render()
+		editor.data.hdrRotation = hdrRotation.getValue();
 	} );
 	rotationRow.add(new UIText( 'HDR Rotation').setWidth( '90px' ) , hdrRotation)
 	editor.data.hdrRotation = hdrRotation.getValue();
 	container.add( rotationRow );
+
+	// flaaudwls add HDR Intensity UI
+	const hdrIntensityRow = new UIRow();
+	const hdrIntensity = new UINumber(1.0).setStep( 0.1 ).setNudge( 0.1 ).setUnit( '' ).setWidth( '50px' ).onChange( ()=>{
+		editor.data.hdrIntensity  = hdrIntensity.getValue();
+		editor.scene.traverse(m=>{
+			if(m instanceof THREE.Mesh){
+				m.material.envMapIntensity =  hdrIntensity.getValue();
+			}
+		})
+		editor.render()
+	} );
+	hdrIntensityRow.add(new UIText( 'HDR Intensity').setWidth( '90px' ) , hdrIntensity)
+	editor.data.hdrIntensity = hdrIntensity.getValue();
+	container.add( hdrIntensityRow );
 
 	// flaaudwls add Model & HDR file location
 	const modelPathRow = new UIRow();

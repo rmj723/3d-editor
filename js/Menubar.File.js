@@ -81,7 +81,6 @@ function MenubarFile( editor ) {
 	}
 
 	option.onClick( function () {
-		// console.log(editor)
 		let data = {
 			lights: [],
 			camera: {
@@ -95,6 +94,7 @@ function MenubarFile( editor ) {
 			scene: {
 				background: editor.data.hdrPath,
 				rotation: editor.data.hdrRotation,
+				intensity: editor.data.hdrIntensity, 
 				renderer: {
 					toneMapping: toneMappings[window.renderer.toneMapping],
 					exposure: window.renderer.toneMappingExposure,
@@ -135,7 +135,7 @@ function MenubarFile( editor ) {
         element.setAttribute('download', 'scene.json');
         element.style.display = 'none';
         document.body.appendChild(element);
-        element.click();
+        // element.click();
         document.body.removeChild(element);
 		
 	} );
