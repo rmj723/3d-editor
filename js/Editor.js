@@ -135,7 +135,7 @@ function Editor() {
 	if(!isCameraAttached) this.scene.add(this.camera)
 
 	this.environment = null; // hdr path
-	this.data = {};
+	this.data = {arType: "None"};
 	this.render = ()=>{} // render function()
 }
 

@@ -79,9 +79,9 @@ function MenubarFile( editor ) {
 		3: 'Cineon',
 		4: 'ACESFilmic'
 	}
-
 	option.onClick( function () {
 		let data = {
+			ar_type: editor.data.arType,
 			lights: [],
 			camera: {
 				fov: editor.camera.fov,
@@ -135,7 +135,7 @@ function MenubarFile( editor ) {
         element.setAttribute('download', 'scene.json');
         element.style.display = 'none';
         document.body.appendChild(element);
-        // element.click();
+        element.click();
         document.body.removeChild(element);
 		
 	} );

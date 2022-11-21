@@ -246,6 +246,24 @@ function SidebarScene( editor ) {
 
 	container.add( environmentRow );
 
+	/* flaaudwls
+	* add AR Type  = FaceTracking | ImageTracking | WorldTracking		
+	*/
+	const arRow = new UIRow();
+	const arType = new UISelect().setOptions( {
+		'None': 'NONE',
+		'FaceTracking': 'Face Tracking',
+		'ImageTracking': 'Image Tracking',
+		'WorldTracking': 'World Tracking'
+	} ).setWidth( '150px' );
+	arType.setValue( 'None' );
+	arType.onChange( () => {
+		editor.data.arType = arType.getValue();
+	});
+	arRow.add( new UIText( 'AR Type').setWidth( '90px' ) );
+	arRow.add( arType );
+	container.add(arRow)
+
 	// flaaudwls add HDR Rotation UI
 	const rotationRow = new UIRow();
 	const hdrRotation = new UINumber().setStep( 10 ).setNudge( 0.1 ).setUnit( '°' ).setWidth( '50px' ).onChange( ()=>{
