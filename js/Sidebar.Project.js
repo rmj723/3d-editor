@@ -1,86 +1,83 @@
-import { UIPanel, UIRow, UIInput, UICheckbox, UIText, UISpan } from './libs/ui.js';
+import { UIPanel, UIRow, UIInput, UICheckbox, UIText, UISpan } from "./libs/ui.js";
 
 /* import { SidebarProjectMaterials } from './Sidebar.Project.Materials.js'; */
-import { SidebarProjectRenderer } from './Sidebar.Project.Renderer.js';
-import { SidebarProjectVideo } from './Sidebar.Project.Video.js';
+import { SidebarProjectRenderer } from "./customized/Sidebar.Project.Renderer.js";
+import { SidebarProjectVideo } from "./Sidebar.Project.Video.js";
 
-function SidebarProject( editor ) {
+function SidebarProject(editor) {
+  const config = editor.config;
+  const signals = editor.signals;
+  const strings = editor.strings;
 
-	const config = editor.config;
-	const signals = editor.signals;
-	const strings = editor.strings;
+  const container = new UISpan();
 
-	const container = new UISpan();
+  const settings = new UIPanel();
+  settings.setBorderTop("0");
+  settings.setPaddingTop("20px");
+  container.add(settings);
 
-	const settings = new UIPanel();
-	settings.setBorderTop( '0' );
-	settings.setPaddingTop( '20px' );
-	container.add( settings );
+  // Title
 
-	// Title
+  const titleRow = new UIRow();
+  const title = new UIInput(config.getKey("project/title"))
+    .setLeft("100px")
+    .setWidth("150px")
+    .onChange(function () {
+      config.setKey("project/title", this.getValue());
+    });
 
-	const titleRow = new UIRow();
-	const title = new UIInput( config.getKey( 'project/title' ) ).setLeft( '100px' ).setWidth( '150px' ).onChange( function () {
+  titleRow.add(new UIText(strings.getKey("sidebar/project/title")).setWidth("90px"));
+  titleRow.add(title);
 
-		config.setKey( 'project/title', this.getValue() );
+  settings.add(titleRow);
 
-	} );
+  // Editable
 
-	titleRow.add( new UIText( strings.getKey( 'sidebar/project/title' ) ).setWidth( '90px' ) );
-	titleRow.add( title );
+  const editableRow = new UIRow();
+  const editable = new UICheckbox(config.getKey("project/editable"))
+    .setLeft("100px")
+    .onChange(function () {
+      config.setKey("project/editable", this.getValue());
+    });
 
-	settings.add( titleRow );
+  editableRow.add(
+    new UIText(strings.getKey("sidebar/project/editable")).setWidth("90px")
+  );
+  editableRow.add(editable);
 
-	// Editable
+  settings.add(editableRow);
 
-	const editableRow = new UIRow();
-	const editable = new UICheckbox( config.getKey( 'project/editable' ) ).setLeft( '100px' ).onChange( function () {
+  // WebVR
 
-		config.setKey( 'project/editable', this.getValue() );
+  const vrRow = new UIRow();
+  const vr = new UICheckbox(config.getKey("project/vr"))
+    .setLeft("100px")
+    .onChange(function () {
+      config.setKey("project/vr", this.getValue());
+    });
 
-	} );
+  vrRow.add(new UIText(strings.getKey("sidebar/project/vr")).setWidth("90px"));
+  vrRow.add(vr);
 
-	editableRow.add( new UIText( strings.getKey( 'sidebar/project/editable' ) ).setWidth( '90px' ) );
-	editableRow.add( editable );
+  settings.add(vrRow);
 
-	settings.add( editableRow );
+  //
 
-	// WebVR
+  /* container.add( new SidebarProjectMaterials( editor ) ); */
+  container.add(new SidebarProjectRenderer(editor));
 
-	const vrRow = new UIRow();
-	const vr = new UICheckbox( config.getKey( 'project/vr' ) ).setLeft( '100px' ).onChange( function () {
+  if ("SharedArrayBuffer" in window) {
+    container.add(new SidebarProjectVideo(editor));
+  }
 
-		config.setKey( 'project/vr', this.getValue() );
+  // Signals
 
-	} );
+  signals.editorCleared.add(function () {
+    title.setValue("");
+    config.setKey("project/title", "");
+  });
 
-	vrRow.add( new UIText( strings.getKey( 'sidebar/project/vr' ) ).setWidth( '90px' ) );
-	vrRow.add( vr );
-
-	settings.add( vrRow );
-
-	//
-
-	/* container.add( new SidebarProjectMaterials( editor ) ); */
-	container.add( new SidebarProjectRenderer( editor ) );
-
-	if ( 'SharedArrayBuffer' in window ) {
-
-		container.add( new SidebarProjectVideo( editor ) );
-
-	}
-
-	// Signals
-
-	signals.editorCleared.add( function () {
-
-		title.setValue( '' );
-		config.setKey( 'project/title', '' );
-
-	} );
-
-	return container;
-
+  return container;
 }
 
 export { SidebarProject };

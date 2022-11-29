@@ -1,48 +1,40 @@
-import { UISelect } from './libs/ui.js';
+import { UISelect } from "./libs/ui.js";
 
-function ViewportCamera( editor ) {
+function ViewportCamera(editor) {
+  const signals = editor.signals;
 
-	const signals = editor.signals;
+  //
 
-	//
+  const cameraSelect = new UISelect();
+  cameraSelect.setPosition("absolute");
+  cameraSelect.setRight("50px");
+  cameraSelect.setTop("10px");
+  cameraSelect.onChange(function () {
+    editor.setViewportCamera(this.getValue());
+  });
 
-	const cameraSelect = new UISelect();
-	cameraSelect.setPosition( 'absolute' );
-	cameraSelect.setRight( '10px' );
-	cameraSelect.setTop( '10px' );
-	cameraSelect.onChange( function () {
+  signals.cameraAdded.add(update);
+  signals.cameraRemoved.add(update);
 
-		editor.setViewportCamera( this.getValue() );
+  update();
 
-	} );
+  //
 
-	signals.cameraAdded.add( update );
-	signals.cameraRemoved.add( update );
+  function update() {
+    const options = {};
 
-	update();
+    const cameras = editor.cameras;
 
-	//
+    for (const key in cameras) {
+      const camera = cameras[key];
+      options[camera.uuid] = camera.name;
+    }
 
-	function update() {
+    cameraSelect.setOptions(options);
+    cameraSelect.setValue(editor.viewportCamera.uuid);
+  }
 
-		const options = {};
-
-		const cameras = editor.cameras;
-
-		for ( const key in cameras ) {
-
-			const camera = cameras[ key ];
-			options[ camera.uuid ] = camera.name;
-
-		}
-
-		cameraSelect.setOptions( options );
-		cameraSelect.setValue( editor.viewportCamera.uuid );
-
-	}
-
-	return cameraSelect;
-
+  return cameraSelect;
 }
 
 export { ViewportCamera };

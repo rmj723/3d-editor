@@ -1,0 +1,61 @@
+{
+  "ar_type": "FaceTracking",
+  "lights": [
+    {
+      "type": "DirectionalLight",
+      "intensity": 1,
+      "color": "#ffffff",
+      "position": {
+        "x": 2.78,
+        "y": 3.5,
+        "z": -0.5
+      },
+      "target": true,
+      "targetPosition": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ],
+  "camera": {
+    "fov": 50,
+    "near": 0.01,
+    "far": 1000,
+    "position": {
+      "x": 3.0569289341717707,
+      "y": 3.444540771480666,
+      "z": -7.957591039914936
+    }
+  },
+  "scene": {
+    "background": "https://sweet-3d-viewer.vercel.app/examples/files/royal.hdr",
+    "rotation": 30,
+    "intensity": 1.74,
+    "renderer": {
+      "toneMapping": "Linear",
+      "exposure": 2.1
+    },
+    "lights": {
+      "physical": false
+    }
+  },
+  "model": {
+    "path": "https://sweet-3d-viewer.vercel.app/examples/files/Soldier.glb",
+    "position": {
+      "x": "0.00",
+      "y": "-0.50",
+      "z": "0.00"
+    },
+    "rotation": {
+      "x": "0.00",
+      "y": "0.02",
+      "z": "0.00"
+    },
+    "scale": {
+      "x": "1.20",
+      "y": "1.20",
+      "z": "1.20"
+    }
+  }
+}
