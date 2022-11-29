@@ -81,7 +81,7 @@ function MenubarFile(editor) {
   option.onClick(function () {
     fileInput1.click();
   });
-  //   options.add(option);
+  options.add(option);
 
   /* Export JSON */
 
