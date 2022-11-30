@@ -555,7 +555,7 @@ select:hover {
 
 /* DARK MODE */
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   button {
     color: #aaa;
     background-color: #222;
