@@ -11,12 +11,38 @@ export const importJson = (json, editor) => {
 
   if (lights) {
     lights.forEach((l) => {
+      let light;
       if (l.type === "DirectionalLight") {
-        const light = new THREE.DirectionalLight(l.color, l.intensity);
-        light.name = "DirectionalLight";
+        light = new THREE.DirectionalLight(l.color, l.intensity);
         light.position.set(l.position.x, l.position.y, l.position.z);
-        editor.execute(new AddObjectCommand(editor, light));
+        light.target.position.set(
+          l.targetPosition.x,
+          l.targetPosition.y,
+          l.targetPosition.z
+        );
+        light.name = "DirectionalLight";
+      } else if (l.type === "AmbientLight") {
+        light = new THREE.AmbientLight(l.color, l.intensity);
+        light.name = "AmbientLight";
+      } else if (l.type === "PointLight") {
+        light = new THREE.PointLight(l.color, l.intensity);
+        light.position.set(l.position.x, l.position.y, l.position.z);
+        light.name = "PointLight";
+      } else if (l.type === "SpotLight") {
+        light = new THREE.SpotLight(l.color);
+        light.position.set(l.position.x, l.position.y, l.position.z);
+        light.target.position.set(
+          l.targetPosition.x,
+          l.targetPosition.y,
+          l.targetPosition.z
+        );
+        light.name = "SpotLight";
+      } else {
+        light = new THREE.HemisphereLight(l.color, l.intensity);
+        light.name = "HemisphereLight";
       }
+
+      editor.execute(new AddObjectCommand(editor, light));
     });
   }
 

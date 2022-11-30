@@ -16,6 +16,46 @@
         "y": 0,
         "z": 0
       }
+    },
+    {
+      "type": "AmbientLight",
+      "intensity": 0.12,
+      "color": "#cd7e7e",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "target": false,
+      "targetPosition": null
+    },
+    {
+      "type": "PointLight",
+      "intensity": 2.12,
+      "color": "#ff0000",
+      "position": {
+        "x": 1.22,
+        "y": 2.24,
+        "z": 0
+      },
+      "target": false,
+      "targetPosition": null
+    },
+    {
+      "type": "SpotLight",
+      "intensity": 1,
+      "color": "#ffa200",
+      "position": {
+        "x": 2.48,
+        "y": 3.38,
+        "z": 6.58
+      },
+      "target": true,
+      "targetPosition": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
     }
   ],
   "camera": {

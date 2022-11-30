@@ -71,7 +71,7 @@ function Viewport(editor) {
   let objectScaleOnDown = null;
 
   const transformControls = new TransformControls(camera, container.dom);
-  transformControls.scale.set(0);
+  transformControls.scale.set(1);
   transformControls.addEventListener("change", function () {
     const object = transformControls.object;
 
