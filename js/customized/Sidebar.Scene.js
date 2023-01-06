@@ -239,6 +239,7 @@ function SidebarScene(editor) {
     .setOptions({
       None: "NONE",
       FaceTracking: "Face Tracking",
+      BodyTracking: "Body Tracking",
       ImageTracking: "Image Tracking",
       WorldTracking: "World Tracking",
     })

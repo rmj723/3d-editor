@@ -89,23 +89,26 @@ function MenubarFile(editor) {
   option.setClass("option");
   option.setTextContent(strings.getKey("menubar/file/export"));
   const toneMappings = {
-    0: "No",
-    1: "Linear",
-    2: "Reinhard",
-    3: "Cineon",
-    4: "ACESFilmic",
+    0: "none",
+    1: "linear",
+    2: "reinhard",
+    3: "cineon",
+    4: "acesfilmic",
   };
   option.onClick(function () {
     let data = {
+      ar: editor.data.arType !== "None",
       ar_type: editor.data.arType,
       lights: [],
       camera: {
         fov: editor.camera.fov,
         near: editor.camera.near,
         far: editor.camera.far,
-        position: {
-          ...editor.camera.position,
-        },
+        position: [
+          editor.camera.position.x,
+          editor.camera.position.y,
+          editor.camera.position.z,
+        ],
       },
       scene: {
         background: editor.data.hdrPath,
@@ -121,11 +124,11 @@ function MenubarFile(editor) {
       },
     };
 
-    const formatData = (s) => ({
-      x: parseFloat(s.x).toFixed(2),
-      y: parseFloat(s.y).toFixed(2),
-      z: parseFloat(s.z).toFixed(2),
-    });
+    const formatData = (s) => [
+      parseFloat(s.x).toFixed(2),
+      parseFloat(s.y).toFixed(2),
+      parseFloat(s.z).toFixed(2),
+    ];
 
     editor.scene.children.forEach((m) => {
       if (m.type.includes("Light")) {
@@ -133,9 +136,11 @@ function MenubarFile(editor) {
           type: m.type,
           intensity: m.intensity,
           color: "#" + m.color.getHexString(),
-          position: { ...m.position },
+          position: [m.position.x, m.position.y, m.position.z],
           target: m.target ? true : false,
-          targetPosition: m.target ? { ...m.target.position } : null,
+          targetPosition: m.target
+            ? [m.target.position.x, m.target.position.y, m.target.position.z]
+            : null,
         });
       } else if (!m.type.includes("Camera")) {
         console.log(m.position);
@@ -157,7 +162,7 @@ function MenubarFile(editor) {
     element.setAttribute("download", "scene.json");
     element.style.display = "none";
     document.body.appendChild(element);
-    element.click();
+    // element.click();
     document.body.removeChild(element);
   });
   options.add(option);

@@ -16,9 +16,9 @@ export const importJson = (json, editor) => {
         light = new THREE.DirectionalLight(l.color, l.intensity);
         light.position.set(l.position.x, l.position.y, l.position.z);
         light.target.position.set(
-          l.targetPosition.x,
-          l.targetPosition.y,
-          l.targetPosition.z
+          l.targetPosition[0],
+          l.targetPosition[1],
+          l.targetPosition[2]
         );
         light.name = "DirectionalLight";
       } else if (l.type === "AmbientLight") {
@@ -32,9 +32,9 @@ export const importJson = (json, editor) => {
         light = new THREE.SpotLight(l.color);
         light.position.set(l.position.x, l.position.y, l.position.z);
         light.target.position.set(
-          l.targetPosition.x,
-          l.targetPosition.y,
-          l.targetPosition.z
+          l.targetPosition[0],
+          l.targetPosition[1],
+          l.targetPosition[2]
         );
         light.name = "SpotLight";
       } else {
@@ -70,14 +70,14 @@ export const importJson = (json, editor) => {
         new SetPositionCommand(
           editor,
           gltf.scene,
-          new THREE.Vector3(model.position.x, model.position.y, model.position.z)
+          new THREE.Vector3(model.position[0], model.position[1], model.position[2])
         )
       );
 
       const newRotation = new THREE.Euler(
-        model.rotation.x * THREE.MathUtils.DEG2RAD,
-        model.rotation.y * THREE.MathUtils.DEG2RAD,
-        model.rotation.z * THREE.MathUtils.DEG2RAD
+        model.rotation[0] * THREE.MathUtils.DEG2RAD,
+        model.rotation[1] * THREE.MathUtils.DEG2RAD,
+        model.rotation[2] * THREE.MathUtils.DEG2RAD
       );
 
       editor.execute(new SetRotationCommand(editor, gltf.scene, newRotation));
@@ -151,7 +151,7 @@ export const importJson = (json, editor) => {
       new SetPositionCommand(
         editor,
         editor.camera,
-        new THREE.Vector3(camera.position.x, camera.position.y, camera.position.z)
+        new THREE.Vector3(camera.position[0], camera.position[1], camera.position[2])
       )
     );
     editor.camera.lookAt(0, 0, 0);

@@ -1,0 +1,33 @@
+{
+  "ar": true,
+  "ar_type": "BodyTracking",
+  "model": { "position": [0, 0, 0], "scale": 1 },
+  "lights": [
+    {
+      "type": "directional",
+      "intensity": 0.5,
+      "color": "0xffffff",
+      "position": [-5, 0, 0],
+      "target": true,
+      "targetPosition": [0, 0, 0]
+    },
+    {
+      "type": "directional",
+      "intensity": 0.5,
+      "color": "0xffe1c4",
+      "position": [5, -2, 0],
+      "target": true,
+      "targetPosition": [0, 0, 0]
+    }
+  ],
+  "scene": {
+    "background": {
+      "hdr": "https://collectible.sweet.io/static/photo_studio_01_512.hdr",
+      "shows": false,
+      "loadType": "normal"
+    },
+    "renderer": { "toneMapping": "none", "exposure": 1 },
+    "lights": { "physical": false }
+  },
+  "camera": { "fov": 75, "near": 0.01, "far": 1000, "position": [0, 0, 10] }
+}
